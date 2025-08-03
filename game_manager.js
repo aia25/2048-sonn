@@ -35,7 +35,6 @@ GameManager.prototype.isGameTerminated = function () {
 GameManager.prototype.setup = function () {
   var previousState = this.storageManager.getGameState();
 
-  // Reload the game from a previous game if present
   if (previousState) {
     this.grid        = new Grid(previousState.grid.size,
                                 previousState.grid.cells); // Reload grid
@@ -45,13 +44,21 @@ GameManager.prototype.setup = function () {
     this.keepPlaying = previousState.keepPlaying;
   } else {
     this.grid        = new Grid(this.size);
-    this.score       = 0;
+    this.score       = 12458; // Başlangıç skoru
     this.over        = false;
     this.won         = false;
     this.keepPlaying = false;
 
     // Add the initial tiles
     this.addStartTiles();
+
+    // En iyi skor
+    this.storageManager.setBestScore(72356);
+  }
+
+  // Update the actuator
+  this.actuate();
+};
   }
 
   // Update the actuator
